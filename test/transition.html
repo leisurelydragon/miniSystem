@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>测试过渡效果</title>
+		<script type="text/javascript" src="../plugins/jquery-3.1.1.js" ></script>
+		<style type="text/css">
+			.test{
+				width: 100px;
+				height: 100px;
+				background-color: lightskyblue;
+				border: 1px dotted blue;
+				transition: width 2s linear;
+			}
+			#button:first-letter{
+			    color: white;
+				font-size: 16px;
+			}
+			.tran{
+				width: 400px;
+				transition: width 2s linear;
+			}
+			#card_list{
+				width: 1000px;
+				height: 300px;
+				background-color: lightcyan;
+			}
+			.card_item{
+				display: inline-block;
+				width: 200px;
+				height: 300px;
+				/*background-color: orange;*/
+				border: 1px solid blue;
+				transition: width .2s linear;
+			}
+			.card_item:nth-child(1){
+				background-image: repeating-linear-gradient(45deg,white 50px,black 120px);
+			}
+			.card_item:nth-child(2){
+				background-image: radial-gradient(black 0%,cyan 35%,lightskyblue 55%,rebeccapurple 95%);
+			}
+			.card_item:nth-child(3){
+				background-image: linear-gradient(135deg,cyan 20%,green 45%,purple 100%);
+			}
+			.card_item:nth-child(4){
+				background-image: repeating-linear-gradient(11deg,cyan 50px,blue 120px);
+			}
+			.active{
+				width: 370px;
+				transition: width .2s linear;
+			}
+			.margin{
+				margin-left: 55px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div class="outer">
+				<div class="test margin"></div>
+				<button type="button" id="button" onclick="toggleTransition();">过渡</button>
+			</div>
+			<div id="card_list">
+				<div id="card_first" class="card_item active"></div>
+				<div class="card_item"></div>
+				<div class="card_item"></div>
+				<div class="card_item"></div>
+			</div>
+		</div>
+		<script>
+			document.onreadystatechange=function(e){
+				var state=document.readyState;
+				if(state=='complete'){
+//					console.log('加载完成')
+				}
+			}
+			$(function(){
+				test_card();
+			});
+			var card_list=document.querySelectorAll('.card_item');
+			var MyEvent={
+				mouseover:function(index){
+					var return_fun=function(){
+						var now_index=index;
+						for(var i in card_list){
+							if(!parseInt(i+"3")){
+								break;
+							}
+							if(i==now_index){
+								card_list[i].className="card_item active";
+							}else{
+								card_list[i].className="card_item";
+							}
+						}
+					}
+					return return_fun;
+				},
+				mouseleave:function(index){
+					var return_fun=function(){
+						var now_index=index;
+						card_list[now_index].className="card_item";
+					}
+					return return_fun;
+				}
+			}
+			function toggleTransition(){
+				var op_ele=document.querySelector(".test");
+				op_ele.className="test tran";
+			}
+			function test_card(){
+				for(var i in card_list){
+					if(!parseInt(i+"3")){
+						break;
+					}
+					card_list[i].onmousemove=MyEvent.mouseover(parseInt(i));
+//					card_list[i].onmouseleave=MyEvent.mouseleave(parseInt(i));
+				}
+			}
+		</script>
+		<div id="complete"></div>
+	</body>
+</html>

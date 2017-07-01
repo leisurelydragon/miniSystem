@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>miniSystem</title>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<!-- BOOTSTRAP-->
+		<link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- style for dataTable-->
+		<link rel="stylesheet" href="plugins/dataTable/css/jquery.dataTables.min.css" />
+		<!-- style for zTree-->
+		<link rel="stylesheet" href="plugins/zTree/css/zTreeStyle/zTreeStyle.css" />
+		<!-- jquery-->
+		<script src="plugins/jquery-3.1.1.js" type="text/javascript" charset="utf-8"></script>
+		<!-- dataTable-->
+		<script type="text/javascript" src="plugins/dataTable/js/jquery.dataTables.min.js" ></script>
+		<!--zTree-->
+		<script type="text/javascript" src="plugins/zTree/js/jquery.ztree.all.min.js" ></script>
+		<script type="text/javascript" src="javascript/common/index.js"></script>
+		<style type="text/css">
+			body{
+				margin: 0;
+				padding: 0;
+				color: ghostwhite;
+				background-color: black;
+			}
+			/*滚动条START*/
+			body::-webkit-scrollbar{/*滚动条整体*/
+				background-color:black;
+				/*color: ghostwhite;*/
+				width: 20px;
+				height: 20px;
+			}
+			body::-webkit-scrollbar-thumb{/*滚动条滑块(所有)*/
+				border-radius: 15px;
+				background-image: repeating-linear-gradient(135deg,ghostwhite 5px,black 10px);
+			}
+			body::-webkit-scrollbar-thumb:horizontal{/*滚动条滑块横向*/
+				border-radius: 15px;
+				background-image: repeating-linear-gradient(45deg,ghostwhite 5px,black 10px);
+			}
+			body::-webkit-scrollbar-track{/*滚动条轨道*/
+				box-shadow: 2px 2px 2px blue inset;
+				background-color: white;
+				border-radius:15px;
+			}
+			body::-webkit-scrollbar-track-piece{/*滚动条内轨道*/
+				background-image:repeating-linear-gradient(135deg,ghostwhite 5px,blue 10px);
+				border-radius:15px;
+			}
+			body::-webkit-scrollbar-corner{/*横竖滚动条交汇*/
+				background-image: repeating-linear-gradient(45deg,ghostwhite 5px ,black 10px);
+			}
+			body::-webkit-scrollbar-button:vertical:start,
+			body::-webkit-scrollbar-button:vertical:end{/*纵向滚动条上下的按钮*/
+				background-color:ghostwhite;
+				background-size: 10px 10px;
+				background-repeat: no-repeat;
+				background-position: 5px 5px;
+				background-image:repeating-radial-gradient(circle,red 2px,blue 4px);
+				border-radius: 10px;
+			}
+			body::-webkit-scrollbar-button:horizontal:start,
+			body::-webkit-scrollbar-button:horizontal:end{/*横向滚动条左右的按钮*/
+				background-color:ghostwhite;
+				background-size: 10px 10px;
+				background-repeat: no-repeat;
+				background-position: 5px 5px;
+				background-image:repeating-radial-gradient(circle,red 2px,blue 4px);
+				border-radius: 10px;
+			}
+			body::-webkit-scrollbar-resizer{/*滚动条交汇处拖放以调整元素大小*/
+				background-image: repeating-linear-gradient(45deg,orange 0px,lightcyan);
+			}
+			/*滚动条END*/
+			#header{
+				width: 100%;
+				padding: 0;
+				border-bottom: 1px solid;
+			}
+			.nav_head{
+				width: 100%;
+				height: 60px;
+				padding: 0;
+				margin: 0;
+				perspective: 800px;
+				/*background-color: lightblue;*/
+			}
+			.ul_head{
+				list-style: none;
+				height: 100%;
+				margin: 0;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				transform-style: preserve-3d;
+			    transform: rotateX(1deg) rotateY(15deg);
+			}
+			@-webkit-keyframes light{
+				0%{
+					border-color: ghostwhite;
+				}
+				100%{
+					border-color: red;
+				}
+			}
+			@keyframes light{
+				0%{
+					border-color: ghostwhite;
+				}
+				100%{
+					border-color: red;
+				}
+			}
+			.li_head{
+				display: block;
+			    border: 1px dashed ghostwhite;
+			    padding: 4px;
+			    border-radius: 5px;
+			    font-size: 22px;
+			    background-color: #2b2525;
+			    cursor: pointer;
+			    animation: .25s light linear infinite alternate;
+			}
+			.li_head a{
+				color: inherit;
+				text-decoration: none;
+				-webkit-text-fill-color: transparent;
+				-webkit-background-clip: text;
+				background-image: repeating-linear-gradient(45deg,ghostwhite 0px,blue 5px);
+				animation: 0.3s a_shine infinite linear alternate-reverse;
+			}
+			@-webkit-keyframes a_shine{
+				0%{
+					background-image: repeating-linear-gradient(45deg,ghostwhite 0px,blue 5px);
+				}
+				100%{
+					background-image: repeating-linear-gradient(45deg,blue 0px,ghostwhite 5px);
+				}
+			}
+			@keyframes a_shine{
+				0%{
+					background-image: repeating-linear-gradient(45deg,ghostwhite 0px,blue 5px);
+				}
+				100%{
+					background-image: repeating-linear-gradient(45deg,blue 0px,ghostwhite 5px);
+				}
+			}
+			a{
+				cursor: pointer;
+			}
+			a:link,a:visited,a:hover,a:focus{
+				color: inherit;
+				text-decoration: none;
+			}
+			#outerDiv{
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 88;
+				opacity: 0.5;
+				background-color: lightblue;
+			}
+			#content{
+				width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			.content{
+				width: 100%;
+			}
+			/*dataTable样式*/
+			table.dataTable tr{
+				background: transparent!important;
+			}
+			div.dataTables_length{/*底部分页选项*/
+				height: 46px;
+				line-height: 46px;
+			}
+			div,label,select,input{
+				color: ghostwhite;
+			}
+			select,input{
+				background-color: black;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<nav class="nav_head">
+				<ul class="ul_head" id="ul_head">
+					<li class="li_head">
+						<a href="html/diary/diary.html">每日记录</a><!--踏雪留痕-->
+					</li>
+					<li class="li_head">
+						<a href="html/file/guan.html">网址书籍</a><!--书香古卷-->
+					</li>
+					<li class="li_head">
+						<a href="html/jihua/jihua.html">相关管理</a><!--机关锁簧-->
+					</li>
+					<li class="li_head">
+						<a href="html/magic/magic.html">自由作品</a><!--梦幻之境-->
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<div id="content">
+			
+		</div>
+		<script type="text/javascript">
+			function openWidget(){
+//				var screenHeight=screen.availHeight;
+//				var screenWidth=screen.availWidth;
+//				var outerDiv=document.createElement("div");
+//				outerDiv.setAttribute('id','outerDiv');
+//				outerDiv.style.width=screenWidth+"px";
+//				outerDiv.style.height=screenHeight+"px";
+//				document.body.appendChild(outerDiv)
+			}
+		</script>
+	</body>
+</html>
